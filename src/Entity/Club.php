@@ -29,6 +29,11 @@ class Club
      */
     private $playerSeasonClubs;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Logo::class, mappedBy="club", cascade={"persist", "remove"})
+     */
+    private $logo;
+
     public function __construct()
     {
         $this->playerSeasonClubs = new ArrayCollection();
@@ -77,6 +82,28 @@ class Club
                 $playerSeasonClub->setClub(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLogo(): ?Logo
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?Logo $logo): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($logo === null && $this->logo !== null) {
+            $this->logo->setClub(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($logo !== null && $logo->getClub() !== $this) {
+            $logo->setClub($this);
+        }
+
+        $this->logo = $logo;
 
         return $this;
     }

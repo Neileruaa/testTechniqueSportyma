@@ -5,6 +5,7 @@
 {% block body %}
     <h1 class="h1">Fiche: {{ club.name }}</h1>
     <h3 class="h3">Voici tous les joueurs pour la saison : {{ season}} !</h3>
+    <img src="{{ asset(club.logo.fileName) }}" alt="" height="100px" width="100px">
     {% include 'season/_choice_dropdown.html.twig' with {'club': club, 'seasons': seasons} %}
     <table class="table">
         <thead>

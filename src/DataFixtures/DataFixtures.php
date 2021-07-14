@@ -3,10 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\Club;
+use App\Entity\Logo;
 use App\Entity\Player;
 use App\Entity\PlayerSeasonClub;
 use App\Entity\Season;
 use App\Repository\PlayerSeasonClubRepository;
+use App\Security\LoginFormAuthenticator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -26,10 +28,35 @@ class DataFixtures extends Fixture
             ->setName("Machin")
         ;
 
+        $logo = new Logo();
+        $logo
+            ->setName("Logo1")
+            ->setFileName("image/rcs.png")
+            ->setStart(\DateTime::createFromFormat("j-m-Y", "21-08-2020"))
+            ->setEnd(\DateTime::createFromFormat("j-m-Y", "23-05-2021"))
+        ;
+
+        $logo2 = new Logo();
+        $logo2
+            ->setName("Logo2")
+            ->setFileName("image/rsc.png")
+            ->setStart(\DateTime::createFromFormat("j-m-Y", "21-08-2020"))
+            ->setEnd(\DateTime::createFromFormat("j-m-Y", "23-05-2021"))
+        ;
+
+
         $club = new Club();
         $club
             ->setName("RCS")
+            ->setLogo($logo)
         ;
+
+        $club2 = new Club();
+        $club2
+            ->setName("FC Colmar")
+            ->setLogo($logo2)
+        ;
+
 
         $season = new Season();
         $season
@@ -49,6 +76,15 @@ class DataFixtures extends Fixture
             ->setGoals(35)
             ->setPlayer($player)
             ->setClub($club)
+            ->setSeason($season)
+        ;
+
+        $playerSeasonClub0 = new PlayerSeasonClub();
+        $playerSeasonClub0
+            ->setNumber(11)
+            ->setGoals(2)
+            ->setPlayer($player)
+            ->setClub($club2)
             ->setSeason($season)
         ;
 
@@ -73,10 +109,14 @@ class DataFixtures extends Fixture
 
         $manager->persist($player);
         $manager->persist($player2);
+        $manager->persist($logo);
+        $manager->persist($logo2);
         $manager->persist($club);
+        $manager->persist($club2);
         $manager->persist($season);
         $manager->persist($season2);
         $manager->persist($playerSeasonClub);
+        $manager->persist($playerSeasonClub0);
         $manager->persist($playerSeasonClub2);
         $manager->persist($playerSeasonClub3);
         $manager->flush();

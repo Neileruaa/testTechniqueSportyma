@@ -32,6 +32,16 @@ class Logo
      */
     private $end;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fileName;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Club::class, inversedBy="logo", cascade={"persist", "remove"})
+     */
+    private $club;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Logo
     public function setEnd(?\DateTimeInterface $end): self
     {
         $this->end = $end;
+
+        return $this;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(string $fileName): self
+    {
+        $this->fileName = $fileName;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(?Club $club): self
+    {
+        $this->club = $club;
 
         return $this;
     }
