@@ -1,0 +1,10 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Choix de la saison
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for season in seasons %}
+            <a class="dropdown-item" href="{{ path('app_show_club', {'club_id': club.id, 'season_id': season.id} )}}">{{ season }}</a>
+        {% endfor %}
+    </div>
+</div>

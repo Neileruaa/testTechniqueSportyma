@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1 class="h1">Bonjour {{ app.user.username }}</h1>
+    <h3 class="h3">Voici tous les clubs, vous pouvez en choisir un !</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Saison</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in datas %}
+            <tr>
+                <th scope="row">{{ data.club.name }}</th>
+                <td>
+                    <div class="input-group mb-3">
+                        {% include 'season/_choice_dropdown.html.twig' with {'club': data.club, 'seasons': data.seasons} %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

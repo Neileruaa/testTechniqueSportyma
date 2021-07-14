@@ -22,17 +22,22 @@ class Season
     /**
      * @ORM\Column(type="date")
      */
-    private $start;
+    private \DateTime $start;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $end;
+    private \DateTime $end;
 
     /**
      * @ORM\OneToMany(targetEntity=PlayerSeasonClub::class, mappedBy="season")
      */
     private $playerSeasonClubs;
+
+    public function __toString()
+    {
+        return $this->start->format("Y") . "/" . $this->end->format("Y");
+    }
 
     public function __construct()
     {

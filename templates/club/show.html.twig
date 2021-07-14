@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche club{% endblock %}
+
+{% block body %}
+    <h1 class="h1">Fiche: {{ club.name }}</h1>
+    <h3 class="h3">Voici tous les joueurs pour la saison : {{ season}} !</h3>
+    {% include 'season/_choice_dropdown.html.twig' with {'club': club, 'seasons': seasons} %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for player in players %}
+            <tr>
+                <th scope="row">{{ player.name }}</th>
+                <td>{{ player.firstName }}</td>
+                <td><a class="btn btn-info" href="{{ path('app_show_player', {'club_id': club.id, 'season_id': season.id, 'player_id': player.id}) }}">Voir</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

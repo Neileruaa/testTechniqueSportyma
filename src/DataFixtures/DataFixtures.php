@@ -37,6 +37,12 @@ class DataFixtures extends Fixture
             ->setEnd(\DateTime::createFromFormat("j-m-Y", "23-05-2021"))
         ;
 
+        $season2 = new Season();
+        $season2
+            ->setStart(\DateTime::createFromFormat("j-m-Y", "21-08-2021"))
+            ->setEnd(\DateTime::createFromFormat("j-m-Y", "23-05-2022"))
+        ;
+
         $playerSeasonClub = new PlayerSeasonClub();
         $playerSeasonClub
             ->setNumber(10)
@@ -55,12 +61,24 @@ class DataFixtures extends Fixture
             ->setSeason($season)
         ;
 
+        $playerSeasonClub3 = new PlayerSeasonClub();
+        $playerSeasonClub3
+            ->setNumber(9)
+            ->setGoals(0)
+            ->setPlayer($player2)
+            ->setClub($club)
+            ->setSeason($season2)
+        ;
+
+
         $manager->persist($player);
         $manager->persist($player2);
         $manager->persist($club);
         $manager->persist($season);
+        $manager->persist($season2);
         $manager->persist($playerSeasonClub);
         $manager->persist($playerSeasonClub2);
+        $manager->persist($playerSeasonClub3);
         $manager->flush();
     }
 }

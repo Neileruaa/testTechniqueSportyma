@@ -2,6 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Club;
+use App\Entity\Player;
+use App\Entity\PlayerSeasonClub;
 use App\Entity\Season;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +22,31 @@ class SeasonRepository extends ServiceEntityRepository
         parent::__construct($registry, Season::class);
     }
 
-    // /**
-    //  * @return Season[] Returns an array of Season objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllSeasonForClub(Club $club): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->_em->createQueryBuilder()
+            ->select('s')
+            ->from(Season::class, 's')
+            ->join('s.playerSeasonClubs', 'psc')
+            ->andWhere('psc.club = :club')
+            ->setParameter('club', $club)
+            ->groupBy("s.id")
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Season
+    public function getAllSeasonForPlayer(Player $player): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->_em->createQueryBuilder()
+            ->select('s')
+            ->from(Season::class, 's')
+            ->join('s.playerSeasonClubs', 'psc')
+            ->andWhere('psc.player = :player')
+            ->setParameter('player', $player)
+            ->groupBy("s.id")
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 }

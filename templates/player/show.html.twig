@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Joueur{% endblock %}
+
+{% block body %}
+    <h1 class="h1">Fiche: {{ player.firstName }} {{ player.name }}</h1>
+    <h3 class="h3">Voici ses infos pour la saison : {{ season}} !</h3>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choix de la saison
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for season in seasons %}
+                <a class="dropdown-item" href="{{ path('app_show_player', {'season_id': season.id, 'player_id': player.id, 'club_id': club.id} )}}">{{ season }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Club</th>
+            <th scope="col">Stats</th>
+            <th scope="col">Numero</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for psc in playerSeasonsClub %}
+            <tr>
+                <th scope="row">{{ psc.club.name }}</th>
+                <td>{{ psc.goals }}</td>
+                <td>{{ psc.number }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
