@@ -6,9 +6,11 @@ use App\Repository\SeasonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=SeasonRepository::class)
+ * @Gedmo\Loggable
  */
 class Season
 {
@@ -31,6 +33,7 @@ class Season
 
     /**
      * @ORM\OneToMany(targetEntity=PlayerSeasonClub::class, mappedBy="season")
+     * @Gedmo\Versioned
      */
     private $playerSeasonClubs;
 

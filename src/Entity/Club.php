@@ -6,9 +6,11 @@ use App\Repository\ClubRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ClubRepository::class)
+ * @Gedmo\Loggable
  */
 class Club
 {
@@ -16,21 +18,25 @@ class Club
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Gedmo\Versioned
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Versioned
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=PlayerSeasonClub::class, mappedBy="club")
+     * @Gedmo\Versioned
      */
     private $playerSeasonClubs;
 
     /**
      * @ORM\OneToOne(targetEntity=Logo::class, mappedBy="club", cascade={"persist", "remove"})
+     * @Gedmo\Versioned
      */
     private $logo;
 

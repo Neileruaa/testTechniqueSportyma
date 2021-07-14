@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\PlayerSeasonClubRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerSeasonClubRepository::class)
+ * @Gedmo\Loggable
  */
 class PlayerSeasonClub
 {
@@ -30,17 +32,20 @@ class PlayerSeasonClub
     /**
      * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="playerSeasonClubs")
      * @ORM\JoinColumn(nullable=false)
+     * @Gedmo\Versioned
      */
     private $player;
 
     /**
      * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="playerSeasonClubs")
      * @ORM\JoinColumn(nullable=false)
+     * @Gedmo\Versioned
      */
     private $season;
 
     /**
      * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="playerSeasonClubs")
+     * @Gedmo\Versioned
      */
     private $club;
 
